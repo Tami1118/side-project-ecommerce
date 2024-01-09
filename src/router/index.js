@@ -29,18 +29,15 @@ const routes = [
       },
       {
         path: 'cart',
-        component: () => import('../views/frontend/CartView.vue')
+        component: () => import('../views/frontend/CartView.vue'),
       },
       {
-        path: 'order-form',
-        component: () => import('../views/frontend/OrderForm.vue')
-      },
-      {
-        path: 'order-pay',
+        // path: 'order/:id',
+        path: 'order-pay/:id',
         component: () => import('../views/frontend/OrderPay.vue')
       },
       {
-        path: 'order-complete',
+        path: 'order-complete/:id',
         component: () => import('../views/frontend/OrderComplete.vue')
       },
       {

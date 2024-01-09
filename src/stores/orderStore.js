@@ -1,6 +1,8 @@
 const { VITE_URL, VITE_PATH } = import.meta.env
 import { defineStore } from 'pinia'
-// import axios from 'axios'
+import axios from 'axios'
+// import { Toast, Alert } from '@/mixins/swal'
+import { Alert } from '@/mixins/swal'
 
 export default defineStore('order', {
   state: () => {
@@ -12,37 +14,45 @@ export default defineStore('order', {
   },
 
   actions: {
-    // 新增訂單(表單)
-    createOrder() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}`
-      console.log('createOrder', url)
+    // 取得所有訂單資訊
+    getOrders() {
+      const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}s`
+      // console.log('gerOrders 取得所有訂單', url)
 
-      // axios.post()
+      axios.get(url)
+        .then(res => {
+          console.log('gerOrders 成功取得所有訂單', res)
+          const {orders} = res.data
+          this.orders = orders
+        })
+        .catch(err => {
+          console.log('gerOrders 失敗', err.response)
+          Alert.fire({
+            title: '資料有誤，請稍後再試一次',
+            icon: 'error'
+          })
+        })
     },
 
     // 取得單一訂單資訊
     getOrder(id) {
       const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}/${id}`
-      console.log('gerOrder', url)
+      // console.log('gerOrder 取得單一訂單資訊', url)
 
-      // axios.get()
+      axios.get(url)
+        .then(res => {
+          console.log('getOrder 取得單一訂單資訊', res)
+          const { order } = res.data
+          this.order = order
+          this.user = order.user
+        })
+        .catch(err => {
+          console.log('getOrder 失敗', err.response)
+          Alert.fire({
+            title: '資料有誤，請稍後再試一次',
+            icon: 'error'
+          })
+        })
     },
-
-    // 取得所有訂單資訊
-    getOrders() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}s`
-      console.log('gerOrders', url)
-
-      // axios.get()
-    },
-
-    // 訂單付款
-    payOrder(id){
-      const url = `${VITE_URL}/api/${VITE_PATH}/pay/${id}`
-      console.log('payOrder 訂單付款',url)
-      // axios.post()
-    }
-
- 
   }
 })

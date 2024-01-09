@@ -24,7 +24,7 @@ export default {
 
 <template>
   <div class="d-flex flex-column gap-3">
-    <div class="bg-light p-3">
+    <div class="p-3">
       <h2 style="font-size: 20px;" class="fw-600">購物車內容</h2>
       <div class="d-flex flex-column gap-3">
         <template v-for="item in carts" :key="item.id">
@@ -48,8 +48,6 @@ export default {
       {{total}}
       <!-- 折扣後 -->
       {{final_total}}
-
-      
       <button class="btn btn-primary" @click="useCoupon">優惠券</button>
     </div>
   </div>
