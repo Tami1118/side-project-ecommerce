@@ -24,6 +24,7 @@ export default {
         user: this.user,
         message: this.message
       }
+      
       this.$http.post(url, {data})
         .then(res => {
           console.log(res)

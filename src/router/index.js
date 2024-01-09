@@ -41,13 +41,13 @@ const routes = [
       {
         path: 'order-pay/:id',
         name: 'order-pay',
-        meta: { title: '訂單付款' },
+        meta: { title: '確認付款' },
         component: () => import('../views/frontend/OrderPay.vue')
       },
       {
         path: 'order-complete/:id',
         name: 'order-complete',
-        meta: { title: '完成訂單' },
+        meta: { title: '訂單已成立' },
         component: () => import('../views/frontend/OrderComplete.vue')
       },
       {
@@ -63,10 +63,22 @@ const routes = [
         component: () => import('../views/frontend/FaqView.vue')
       },
       {
+        path: 'guideline',
+        name: 'guideline',
+        meta: { title: '測試頁面' },
+        component: () => import('../views/frontend/GuidelineView.vue')
+      },
+      {
         path: 'login',
         name: 'login',
         meta: { title: '登入' },
         component: () => import('../views/LoginView.vue')
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'notFound',
+        meta: { title: '錯誤頁面' },
+        component: () => import('../views/NotFound.vue')
       },
     ]
   },
@@ -106,13 +118,6 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'notFound',
-    meta: { title: '錯誤頁面' },
-    component: () => import('../views/NotFound.vue')
-  },
-
 ]
 
 const router = createRouter({

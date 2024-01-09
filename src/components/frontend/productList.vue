@@ -21,7 +21,7 @@ export default {
         <router-link :to="`/product/${item.id}`" class="card" style="text-decoration: none;">
           <img :src="item.imageUrl" style="height: 180px" class="card-img-top object-fit-cover" :alt="item.title">
           <div class="card-body">
-            <h3 class="card-title">{{item.title}}</h3>
+            <h3 class="card-title" style="font-family: 'OpenFont'">{{item.title}}</h3>
             <span class="badge bg-secondary">{{item.category}}</span>
             <div class="d-flex gap-3">
               <div class="text-primary fw-bold">NT$ {{item.price}}</div>

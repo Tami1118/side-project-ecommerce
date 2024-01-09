@@ -12,8 +12,6 @@
       <page-component :pagination="pagination" :get-pages="getProducts"></page-component>
     </div>
   </div>
-
-  <cart-list></cart-list>
 </template>
 
 
@@ -24,7 +22,6 @@ import productNav from "@/components/frontend/productNav.vue";
 import productSort from "@/components/frontend/productSort.vue";
 import productList from "@/components/frontend/productList.vue";
 import pageComponent from "@/components/pageComponent.vue";
-import cartList from "@/components/frontend/cartList.vue";
 
 export default {
   components: {
@@ -32,7 +29,6 @@ export default {
     productNav,
     productSort,
     productList,
-    cartList
   },
   mounted() {
     this.getProducts();

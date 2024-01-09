@@ -293,11 +293,58 @@ const orderFields = [
   },
 ]
 
+const userFields = [
+  {
+    as: 'input',
+    type: 'text',
+    id: 'orderName',
+    name: '訂購人姓名',
+    label: '訂購人姓名',
+    placeholder: '請輸入真實姓名',
+    rules: Yup.string().required().label("訂購人姓名"),
+    required: true,
+    model: 'name',
+  },
+  {
+    as: 'input',
+    type: 'email',
+    id: 'orderEmail',
+    name: '電子信箱',
+    label: '電子信箱',
+    placeholder: '請輸入電子信箱',
+    rules: Yup.string().email().required().label("電子信箱"),
+    required: true,
+    model: 'email',
+  },
+  {
+    as: 'input',
+    type: 'tel',
+    id: 'orderTel',
+    name: '聯絡電話',
+    label: '聯絡電話',
+    placeholder: '請輸入手機號碼',
+    rules: Yup.number().required().min(10).label("聯絡電話"),
+    required: true,
+    model: 'email',
+  },
+  {
+    as: 'select',
+    id: 'orderStore',
+    name: '取貨分店',
+    label: '取貨分店',
+    rules: Yup.string().required().label("取貨分店"),
+    required: true,
+    model: 'address',
+    options: ["板橋總店", "中山店", "台北店", "萬華店", "中和店", "新莊店"]
+  },
+]
+
 export {
   localeSet,
   loginFields,
   productFields,
   couponFields,
   articleFields,
-  orderFields
+  orderFields,
+  userFields
 }

@@ -17,6 +17,7 @@ export default {
       <router-link to="/about">商店介紹</router-link>
       <router-link to="/articles">最新消息</router-link>
       <router-link to="/faq">常見問題</router-link>
+      <router-link to="/guideline">Guideline</router-link>
       <router-link to="/admin/products">後台產品</router-link>
     </nav>
 
