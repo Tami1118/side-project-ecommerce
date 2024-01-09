@@ -7,46 +7,66 @@ const routes = [
     children: [
       {
         path: '',
+        meta: { title: '首頁' },
         component: () => import('../views/frontend/HomeView.vue')
       },
       {
         path: 'products',
+        meta: { title: '商品介紹' },
         component: () => import('../views/frontend/ProductsView.vue')
       },
       {
         path: 'product/:id',
-        meta: {title: 'product'},
         name: 'product',
+        meta: { title: '' },
         component: () => import('../views/frontend/ProductDetail.vue')
       },
       {
         path: 'articles',
+        meta: { title: '最新消息' },
         component: () => import('../views/frontend/ArticlesView.vue')
       },
       {
         path: 'article/:id',
+        name: 'article',
+        meta: { title: '' },
         component: () => import('../views/frontend/ArticleDetail.vue')
       },
       {
         path: 'cart',
+        name: 'cart',
+        meta: { title: '購物車' },
         component: () => import('../views/frontend/CartView.vue'),
       },
       {
-        // path: 'order/:id',
         path: 'order-pay/:id',
+        name: 'order-pay',
+        meta: { title: '訂單付款' },
         component: () => import('../views/frontend/OrderPay.vue')
       },
       {
         path: 'order-complete/:id',
+        name: 'order-complete',
+        meta: { title: '完成訂單' },
         component: () => import('../views/frontend/OrderComplete.vue')
       },
       {
         path: 'about',
+        name: 'about',
+        meta: { title: '商店介紹' },
         component: () => import('../views/frontend/AboutView.vue')
       },
       {
         path: 'faq',
+        name: 'faq',
+        meta: { title: '常見問題' },
         component: () => import('../views/frontend/FaqView.vue')
+      },
+      {
+        path: 'login',
+        name: 'login',
+        meta: { title: '登入' },
+        component: () => import('../views/LoginView.vue')
       },
     ]
   },
@@ -56,34 +76,43 @@ const routes = [
     children: [
       {
         path: 'products',
+        name: 'products',
+        meta: { title: '商品管理' },
         component: () => import('../views/admin/ProductsAdmin.vue')
       },
       {
         path: 'orders',
+        name: 'orders',
+        meta: { title: '訂單管理' },
         component: () => import('../views/admin/OrdersAdmin.vue')
       },
       {
         path: 'articles',
+        name: 'articles',
+        meta: { title: '文章管理' },
         component: () => import('../views/admin/ArticlesAdmin.vue')
       },
       {
         path: 'coupons',
+        name: 'coupons',
+        meta: { title: '優惠券管理' },
         component: () => import('../views/admin/CouponsAdmin.vue')
       },
       {
         path: 'test',
+        name: 'test',
+        meta: { title: '測試頁面' },
         component: () => import('../views/admin/TestAdmin.vue')
       },
     ]
   },
   {
     path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    meta: { title: '錯誤頁面' },
     component: () => import('../views/NotFound.vue')
   },
-  {
-    path: '/login',
-    component: () => import('../views/LoginView.vue')
-  },
+
 ]
 
 const router = createRouter({

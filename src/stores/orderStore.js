@@ -10,6 +10,7 @@ export default defineStore('order', {
       type: 'order',
       order: {},
       orders: [],
+      user: {}
     }
   },
 

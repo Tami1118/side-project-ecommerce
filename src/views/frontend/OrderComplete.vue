@@ -1,25 +1,24 @@
-<script>
-import { mapActions, mapState } from 'pinia'
-import orderStore from "@/stores/orderStore"
-
-export default {
-  methods: {
-    ...mapActions(orderStore, ["getOrder"])
-  },
-  computed: {
-    ...mapState(orderStore, ["order"])
-  },
-  mounted(){
-    this.getOrder(this.$route.params.id)
-  }
-}
-</script>
-
 <template>
-  <div>
-    我是完成訂單
-    {{order.user}}
-    {{order.products}}
-    {{order.total}}
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <order-products></order-products>
+      </div>
+      <div class="col-6">
+        <order-user></order-user>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+import orderProducts from "@/components/frontend/orderProducts.vue";
+import orderUser from "@/components/frontend/orderUser.vue";
+
+export default {
+  components: {
+    orderProducts,
+    orderUser,
+  },
+};
+</script>

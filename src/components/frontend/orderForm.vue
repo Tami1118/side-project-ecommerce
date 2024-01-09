@@ -7,8 +7,8 @@ export default {
       storeList: ["板橋總店", "中山店", "台北店", "萬華店", "中和店", "新莊店"],
       user: {
         address: '',
-        name: '123',
-        email: '123@gmail.com',
+        name: 'Tami',
+        email: 'tami1234@gmail.com',
         tel: '0987654321'
       },
       message: "",

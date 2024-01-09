@@ -21,8 +21,21 @@ export default {
     </nav>
 
     <div class="position-relative">
-      <button class="btn p-0" style="cursor: pointer;">購物車</button>
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        購物車
+      </button>
       <span class="badge bg-danger position-absolute top-100 start-100 translate-middle z-3">{{cartNum}}</span>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      
+      <router-link to="/cart" class="btn btn-primary" style="cursor: pointer;">購物車</router-link>
     </div>
   </div>
 </template>
