@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <user-header></user-header>
+  <user-header></user-header>
+  <div style="padding-top: 74px">
     <router-view></router-view>
-    <user-footer></user-footer>
   </div>
+  <user-footer></user-footer>
 </template>
 
 <script>

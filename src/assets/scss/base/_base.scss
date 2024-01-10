@@ -50,10 +50,9 @@ body {
   margin: 0; // 1
   font-family: 'Poppins', 'Noto Sans TC', sans-serif;
   @include font-size(var(--#{$prefix}body-font-size));
-  // font-weight: var(--#{$prefix}body-font-weight);
   font-weight: normal;
   line-height: var(--#{$prefix}body-line-height);
-  color: var(--#{$prefix}body-color);
+  color: $gray-700;
   text-align: var(--#{$prefix}body-text-align);
   background-color: var(--#{$prefix}body-bg); // 2
   -webkit-text-size-adjust: 100%; // 3
@@ -244,7 +243,7 @@ sup { top: -.5em; }
 
 a {
   color: rgba(var(--#{$prefix}link-color-rgb), var(--#{$prefix}link-opacity, 1));
-  text-decoration: $link-decoration;
+  text-decoration: none;
 
   &:hover {
     --#{$prefix}link-color-rgb: var(--#{$prefix}link-hover-color-rgb);

@@ -12,6 +12,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",
     "@ckeditor/ckeditor5-vue": "^5.1.0",
+    "@flaticon/flaticon-uicons": "^3.1.0",
     "@sweetalert2/theme-dark": "^5.0.15",
     "@vee-validate/i18n": "^4.12.3",
     "@vee-validate/rules": "^4.12.3",

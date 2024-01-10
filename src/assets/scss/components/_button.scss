@@ -1,0 +1,31 @@
+.btn {
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    border-color: transparent;
+  }
+}
+
+.btn-primary {
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    background-color: $secondary;
+  }
+}
+
+.btn-outline-primary {
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    color: $secondary;
+    border: 1px solid $secondary;
+    background-color: $white;
+  }
+}
