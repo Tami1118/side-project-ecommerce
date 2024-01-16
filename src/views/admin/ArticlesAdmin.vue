@@ -170,13 +170,13 @@ export default {
       this.sortItem = "";
     },
 
+    // change => getArticle
     getAll(page = 1) {
       const pageUrl = `${VITE_URL}/api/${VITE_PATH}/admin/${this.apiType}s?page=${page}`;
 
-      this.$http
-        .get(pageUrl)
+      this.$http.get(pageUrl)
         .then((res) => {
-          console.log(res.data)
+          console.log('getArticle 成功取得資料',res.data)
           this.allItem = Object.values(res.data[`${this.apiType}s`]);
           this.pagination = res.data.pagination;
           console.log(this.allItem)

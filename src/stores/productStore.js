@@ -10,6 +10,7 @@ export default defineStore('product', {
       product: {},
       products: [],
       productAll: [],
+      productSwiper: [],
       pagination: {},
       
       // filter
@@ -62,6 +63,7 @@ export default defineStore('product', {
           // console.log('getProductAll 取得所有商品資料', res)
           const { products } = res.data
           this.productAll = products
+          this.productSwiper = products.slice(-8)
 
           // Array.from 迭代轉陣列
           this.categories = Array.from(
@@ -86,7 +88,7 @@ export default defineStore('product', {
 
       axios.get(url)
         .then(res => {
-          // console.log('getProductItem 取得單一商品資料', res)
+          console.log('getProductItem 取得單一商品資料', res)
           const { product } = res.data
           this.product = product
         })

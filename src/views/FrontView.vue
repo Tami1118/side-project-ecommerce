@@ -17,5 +17,16 @@ export default {
     UserHeader,
     UserFooter,
   },
+  watch: {
+    // 待處理
+    "$route.path": {
+      immediate: true,
+      handler() {
+        if (this.$route.path) {
+          window.scrollTo(0, 0);
+        }
+      },
+    },
+  },
 };
 </script>

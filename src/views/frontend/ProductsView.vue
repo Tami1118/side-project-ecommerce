@@ -1,14 +1,19 @@
 <template>
   <!-- 1. breadcrumb => component -->
-  <div class="container py-5">
-    <div class="row">
-      <div class="col-md-3">
-        <product-nav></product-nav>
-      </div>
-      <div class="col-md-9">
-        <product-sort></product-sort>
-        <product-list></product-list>
-        <page-component :pagination="pagination" :get-pages="getProducts"></page-component>
+  
+  <div class="">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="position-sticky top-0 pt-20" style="margin-top: -80px">
+            <product-nav></product-nav>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <product-sort></product-sort>
+          <product-list></product-list>
+          <page-component :pagination="pagination" :get-pages="getProducts"></page-component>
+        </div>
       </div>
     </div>
   </div>

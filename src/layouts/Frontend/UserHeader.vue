@@ -16,10 +16,10 @@ export default {
 </script>
 
 <template>
-  <div class="position-fixed top-0 start-0 w-100 z-3">
+  <div class="position-fixed top-0 start-0 w-100" style="z-index: 100">
     <nav class="navbar navbar-expand-lg bg-white bg-opacity-75 filter-blur-5">
       <div class="container">
-        <router-link class="text-decoration-none text-primary" to="/" style="font-family: 'OpenFont'; font-size: 20px">甜福園</router-link>
+        <router-link class="text-decoration-none text-primary" to="/" style="font-size: 20px">甜福園</router-link>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fi fi-br-menu-burger"></i>
         </button>
@@ -36,7 +36,7 @@ export default {
             <button class="btn" type="button"><i class="fi fi-br-search"></i></button>
             <div class="position-relative">
               <button class="btn" type="button"><i class="fi fi-ss-shopping-bag"></i></button>
-              <span class="position-absolute top-0 start-90 translate-middle bg-primary text-white block rounded-pill px-2 fw-600" style="font-size: 14px">{{ cartNum }}</span>
+              <span class="position-absolute top-0 start-90 translate-middle bg-danger text-white block rounded-pill px-2 fw-600" style="font-size: 14px">{{ cartNum }}</span>
             </div>
           </div>
         </div>

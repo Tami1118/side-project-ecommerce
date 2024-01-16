@@ -6,6 +6,7 @@
   &.show {
     border-color: transparent;
   }
+
 }
 
 .btn-primary {
@@ -14,18 +15,69 @@
   &:first-child:active,
   &.active,
   &.show {
-    background-color: $secondary;
+    background-color: #233E39;
   }
 }
 
-.btn-outline-primary {
+.btn-secondary {
+  color: white;
+
+  &:hover{
+    color: white;
+  }
+
   .btn-check:checked+&,
   :not(.btn-check)+&:active,
   &:first-child:active,
   &.active,
   &.show {
-    color: $secondary;
-    border: 1px solid $secondary;
-    background-color: $white;
+    color: white;
+    background-color: #825B3D;
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    color: white;
+  }
+}
+
+.btn-outline-primary {
+  background-color: #fff;
+
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    color: #233E39;
+    border: 1px solid #233E39;
+    background-color: $theme-primary;
+  }
+}
+
+.btn-outline-secondary {
+  background-color: #fff;
+
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    color: #825B3D;
+    border: 1px solid #825B3D;
+    background-color: $theme-secondary;
+  }
+}
+
+.link-primary {
+  &.active{
+    color: #233E39;
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    color: $gray-400;
   }
 }
