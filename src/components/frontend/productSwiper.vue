@@ -1,16 +1,11 @@
 <template>
-  <swiper :modules="modules"
-          :pagination="{
+  <swiper :modules="modules" :pagination="{
             el: '.recommend-swiper-pagination',
             clickable: true
-          }"
-          :navigation="{
+          }" :navigation="{
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
-          }"
-          :slidesPerView="1"
-          :spaceBetween="20"
-          :breakpoints="{
+          }" :slidesPerView="1" :spaceBetween="20" :breakpoints="{
             '768': {
               slidesPerView: 2,
               spaceBetween: 20,
@@ -23,9 +18,7 @@
               slidesPerView: 4,
               spaceBetween: 20,
             },
-          }"
-          :loop="true"
-          class="recommend-swiper">
+          }" class="recommend-swiper">
 
     <!-- navigation -->
     <div class="d-none d-md-flex">
@@ -44,7 +37,7 @@
           <div style="height: 296px" class="img-gradient overflow-hidden">
             <img class="h-100 w-100 object-fit-cover object-position-center" :src="item.imageUrl" :alt="item.title">
           </div>
-          <a href="#" @click.prevent="addCart(item)" class="btn-add position-absolute start-0 w-100 btn btn-primary py-2 z-3">
+          <a href="#" @click.prevent="addCart(item)" class="d-none d-lg-block btn-add position-absolute start-0 w-100 btn btn-primary py-2 z-3">
             <i class="fi fi-ss-shopping-bag-add me-2"></i>加入購物車
           </a>
         </div>
@@ -55,6 +48,9 @@
             <del v-if="item.price !== item.origin_price" class="fs-3h fw-400 text-gray-500">NT$ {{item.origin_price}}</del>
           </div>
         </div>
+        <a href="#" @click.prevent="addCart(item)" class="d-lg-none btn btn-primary py-2 z-3">
+          <i class="fi fi-ss-shopping-bag-add me-2"></i>加入購物車
+        </a>
       </router-link>
     </swiper-slide>
   </swiper>

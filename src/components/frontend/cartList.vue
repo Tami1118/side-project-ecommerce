@@ -7,48 +7,37 @@ export default {
     this.getCart();
   },
   methods: {
-    ...mapActions(cartStore, [
-      "addCart",
-      "getCart",
-      "updateItem",
-      "deleteItem",
-      "deleteAllCart",
-      "useCoupon"
-    ]),
+    ...mapActions(cartStore, ["addCart","getCart","updateCartItem","deleteCartItem"]),
   },
   computed: {
-    ...mapState(cartStore, ["carts", "isDisabled", "cartNum", "total", "final_total"]),
+    ...mapState(cartStore, ["carts","cartNum","isDisabled"]),
   },
 };
 </script>
 
 <template>
-  <div class="d-flex flex-column gap-3">
-    <div class="p-3">
-      <h2 style="font-size: 20px;" class="fw-600">購物車內容</h2>
-      <div class="d-flex flex-column gap-3">
-        <template v-for="item in carts" :key="item.id">
-          <div class="row">
-            <div class="col"><img :src="item.product.imageUrl" style="height: 120px; width: 150px" class="object-fit-cover object-position-center" :alt="item.product.title"></div>
-            <div class="col">{{item.product.title}}</div>
-            <div class="col">
-              <select name="" id="" class="form-select" :disabled="item.isDisabled" v-model="item.qty" @change="updateItem(item)">
-                <option v-for="i in 50" :value="i" :key="i">{{i}}</option>
-              </select>
-            </div>
-            <div class="col"><button type="button" class="btn btn-danger" @click="deleteItem(item.id)">刪除</button></div>
+  <div class="d-flex flex-column">
+    <template v-for="item in carts" :key="item.id">
+      <div class="py-3 d-flex gap-2 border-bottom border-gray-300">
+        <div style="height: 84px; width: 84px">
+          <img class="w-100 h-100 object-fit-cover" :src="item.product.imageUrl" :alt="item.product.title">
+        </div>
+        <div class="d-flex flex-column flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <h3 class="fs-4 fw-500">{{item.product.title}}</h3>
+            <button type="button" class="btn p-0 d-flex align-items-center" @click="deleteCartItem(item.id)">
+              <span class="material-symbols-outlined fs-5">delete</span>
+            </button>
           </div>
-        </template>
+          <p class="fs-3h text-nowrap">NT${{item.product.price}}/{{item.product.unit}}</p>
+          <div class="d-flex justify-content-between align-items-end mt-auto">
+            <select name="" id="" class="form-select text-center py-1 w-fit-content" :disabled="item.isDisabled" v-model.number="item.qty" @change="updateCartItem(item)">
+              <option v-for="i in 50" :value="i" :key="i">{{i}}</option>
+            </select>
+            <p class="fs-3h text-nowrap">金額 NT$ {{item.product.price * item.qty}}</p>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn btn-danger" @click="deleteAllCart">刪除全部</button>
-    </div>
-
-    <div>
-      <!-- 折扣前 -->
-      {{total}}
-      <!-- 折扣後 -->
-      {{final_total}}
-      <button class="btn btn-primary" @click="useCoupon">優惠券</button>
-    </div>
+    </template>
   </div>
 </template>

@@ -10,7 +10,8 @@ export default defineStore('order', {
       type: 'order',
       order: {},
       orders: [],
-      user: {}
+      user: {},
+      origin_total: null
     }
   },
 
@@ -46,6 +47,8 @@ export default defineStore('order', {
           const { order } = res.data
           this.order = order
           this.user = order.user
+          this.origin_total = Object.values(order.products).reduce((a, b) => a + b.total, 0)
+          // console.log(this.origin_total)
         })
         .catch(err => {
           console.log('getOrder 失敗', err.response)

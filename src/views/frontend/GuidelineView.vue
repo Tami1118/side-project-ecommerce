@@ -131,7 +131,7 @@
             <button type="button" class="btn btn-outline-primary d-flex gap-2" disabled>Button<i class="fi fi-sr-woman-head"></i></button>
           </div>
 
-          Primary-outline
+          Secondary-outline
           <div class="d-flex flex-wrap gap-3">
             <button type="button" class="btn btn-outline-secondary">Button</button>
             <button type="button" class="btn btn-outline-secondary active">Button</button>

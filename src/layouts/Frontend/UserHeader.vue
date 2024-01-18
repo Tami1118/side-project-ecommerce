@@ -1,16 +1,31 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import cartStore from "@/stores/cartStore";
+import cartList from '@/components/frontend/cartList.vue';
 
 export default {
-  mounted(){
-    this.getCart()
+  components: {
+    cartList
+  },
+  data() {
+    return {
+      isCart: false,
+    };
+  },
+  mounted() {
+    this.getCart();
   },
   methods: {
-    ...mapActions(cartStore, ["getCart"])
+    ...mapActions(cartStore, ["getCart","updateCartItem","deleteCartItem","clearCart",]),
+    toggleCart() {
+      this.isCart = !this.isCart;
+    },
   },
   computed: {
-    ...mapState(cartStore, ["cartNum"]),
+    ...mapState(cartStore, ["cartNum", "carts", "total"]),
+    transformValue() {
+      return this.isCart ? "translateX(0%)" : "translateX(100%)";
+    },
   },
 };
 </script>
@@ -35,7 +50,9 @@ export default {
           <div class="d-flex gap-3">
             <button class="btn" type="button"><i class="fi fi-br-search"></i></button>
             <div class="position-relative">
-              <button class="btn" type="button"><i class="fi fi-ss-shopping-bag"></i></button>
+              <button class="btn" type="button" data-bs-toggle="offcanvas" href="#cartOffcanvas" role="button" aria-controls="cartOffcanvas">
+                <i class="fi fi-ss-shopping-bag"></i>
+              </button>
               <span class="position-absolute top-0 start-90 translate-middle bg-danger text-white block rounded-pill px-2 fw-600" style="font-size: 14px">{{ cartNum }}</span>
             </div>
           </div>
@@ -43,16 +60,52 @@ export default {
       </div>
     </nav>
   </div>
+
+  <!-- 待處理：跨頁時， offcavans 無法關閉 -->
+  <div class="offcanvas offcanvas-end bg-gray-800" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title text-gray-400 fs-4" id="cartOffcanvasLabel">購物車</h5>
+      <button type="button" class="btn p-0 d-flex align-items-center" data-bs-dismiss="offcanvas" aria-label="Close">
+        <span class="material-symbols-outlined text-gray-400 fs-6">close</span>
+      </button>
+    </div>
+    <div class="offcanvas-body">
+      <template v-if="cartNum !== 0">
+        <div class="text-white">
+          <cart-list></cart-list>
+        </div>
+        
+        <div class="d-flex flex-column">
+          <router-link to="/cart" @click="toggleCart" class="btn btn-primary w-100 mt-3 py-3">前往結帳</router-link>
+          <button class="link-gray-400 text-decoration-underline btn mt-3 me-auto" @click="clearCart">清空購物車</button>
+        </div>
+      </template>
+      <template v-else>
+        <div class="text-white d-flex flex-column align-items-center pt-10">
+          <i class="fi fi-ss-shopping-bag fs-6"></i>
+          購物車內沒有商品
+          <router-link class="btn btn-outline-primary mt-10" to="/products">來去挑選商品</router-link>
+        </div>
+      </template>
+    </div>
+  </div>
 </template>
+
+
 
 <style lang="scss">
 @import "../../assets/scss/util/_helper.scss";
+
+.block {
+  display: block;
+}
 
 .nav-link {
   position: relative;
   color: $gray-500;
 
-  &.active, &:focus {
+  &.active,
+  &:focus {
     &:after {
       content: "";
       position: absolute;
@@ -64,7 +117,8 @@ export default {
       width: 60%;
     }
   }
-  &.active, &:focus {
+  &.active,
+  &:focus {
     font-weight: 600;
     &:after {
       background-color: $primary;

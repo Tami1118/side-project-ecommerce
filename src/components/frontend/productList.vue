@@ -26,6 +26,9 @@ export default {
             <a href="#" @click.prevent="addCart(item)" class="btn-add position-absolute start-0 w-100 btn btn-primary py-2 z-3">
               <i class="fi fi-ss-shopping-bag-add me-2"></i>加入購物車
             </a>
+            <a href="#" @click.prevent="addCart(item)" class="d-md-none w-100 btn btn-primary py-2 z-3">
+              <i class="fi fi-ss-shopping-bag-add me-2"></i>加入購物車
+            </a>
           </div>
           <div class="p-4">
             <h3 class="fs-5 text-center mb-2">{{item.title}}</h3>
@@ -34,6 +37,7 @@ export default {
               <del v-if="item.price !== item.origin_price" class="fs-3h fw-400 text-gray-500">NT$ {{item.origin_price}}</del>
             </div>
           </div>
+
         </router-link>
       </div>
     </div>

@@ -59,6 +59,10 @@
 .btn-outline-secondary {
   background-color: #fff;
 
+  &:hover{
+    color: white;
+  }
+
   .btn-check:checked+&,
   :not(.btn-check)+&:active,
   &:first-child:active,
@@ -79,5 +83,11 @@
   &.disabled,
   fieldset:disabled & {
     color: $gray-400;
+  }
+}
+
+.link-secondary {
+  &.active{
+    color: #825B3D;
   }
 }

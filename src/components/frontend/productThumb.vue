@@ -34,6 +34,9 @@
     <span class="swiper-button-prev material-symbols-outlined text-white h-100">chevron_left</span>
     <span class="swiper-button-next material-symbols-outlined text-white h-100">chevron_right</span>
 
+    <!-- <swiper-slide>
+      <img :src="product.imageUrl" :alt="product.title">
+    </swiper-slide> -->
     <swiper-slide v-for="item in product.imagesUrl" :key="item">
       <img :src="item" :alt="product.title" />
     </swiper-slide>

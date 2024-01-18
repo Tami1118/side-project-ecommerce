@@ -1,56 +1,14 @@
-<script>
-const { VITE_URL, VITE_PATH } = import.meta.env;
-import { userFields, localeSet } from "@/mixins/fields";
-
-export default {
-  data() {
-    return {
-      user: {
-        name: "",
-        email: "",
-        address: "",
-        tel: "",
-      },
-      message: "",
-      storeList: ["板橋總店", "中山店", "台北店", "萬華店", "中和店", "新莊店"],
-      orderId: "",
-      userFields,
-      localeSet,
-    };
-  },
-
-  methods: {
-    // 新增訂單
-    createOrder() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/order`;
-      // console.log('createOrder 新增訂單', url)
-      const data = {
-        user: this.user,
-        message: this.message,
-      };
-
-      this.$http.post(url, { data })
-        .then((res) => {
-          console.log("createOrder 成功", res);
-          this.orderId = res.data.orderId;
-          this.$router.push(`/order-pay/${this.orderId}`);
-        })
-        .catch((err) => {
-          console.log("createOrder 失敗", err.response.data);
-        });
-    },
-  },
-};
-</script>
-
 <template>
-  <div class="bg-white bg-opacity-75 py-10 px-4 px-md-8 px-lg-12">
+
+  <div>
+    <!-- edit: submit, v-for -->
     <VForm class="d-flex flex-column gap-2" v-slot="{ errors }" @submit="createOrder">
-      <div v-for="item in userFields" :key="item.id" class="position-relative pb-5">
+      <div v-for="item in userFields" :key="item.id" class="position-relative pb-6">
         <label :for="item.id" class="form-label">{{item.label}}</label>
         <span v-if="item.required" class="text-danger"> *</span>
-        
-        <!-- input -->
+
+        <!-- edit: v-model -->
+        <!-- input:text -->
         <VField v-if="item.as === 'input' || item.type === 'text'"
                 :type="item.type"
                 :id="item.id"
@@ -58,6 +16,17 @@ export default {
                 :class="{'is-invalid': errors[item.name]}"
                 :rules="item.rules"
                 v-model="user[item.model]"
+                :placeholder="item.placeholder"
+                class="form-control" />
+
+        <!-- input:number -->
+        <VField v-else-if="item.type === 'number'"
+                :type="item.type"
+                :id="item.id"
+                :name="item.name"
+                :class="{'is-invalid': errors[item.name]}"
+                :rules="item.rules"
+                v-model.number="user[item.model]"
                 :placeholder="item.placeholder"
                 class="form-control" />
 
@@ -88,7 +57,7 @@ export default {
                 cols="30" rows="3" />
 
         <ErrorMessage :name="item.name"
-                      class="invalid-feedback fs-3 position-absolute bottom-0 start-0" />
+                      class="invalid-feedback position-absolute bottom-0 start-0" />
       </div>
 
       <div class="d-flex justify-content-between">
@@ -97,4 +66,5 @@ export default {
       </div>
     </VForm>
   </div>
+
 </template>

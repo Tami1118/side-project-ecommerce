@@ -8,10 +8,10 @@ export default defineStore('cart', {
     return {
       type: 'cart',
       carts: [],
-      code: '',
       cartNum: 0,
       total: 0,
       final_total: 0,
+      code: '',
     }
   },
 
@@ -68,7 +68,7 @@ export default defineStore('cart', {
     },
 
     // 編輯購物車商品數量
-    updateItem(item) {
+    updateCartItem(item) {
       const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}/${item.id}`
       // console.log('updateItem 編輯購物車', url)
 
@@ -99,7 +99,7 @@ export default defineStore('cart', {
     },
 
     // 刪除單一購物車商品
-    deleteItem(id) {
+    deleteCartItem(id) {
       const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}/${id}`
       // console.log('deleteItem 刪除單一商品', url)
 
@@ -122,7 +122,7 @@ export default defineStore('cart', {
     },
 
     // 刪除購物車全部商品
-    deleteAllCart() {
+    clearCart() {
       const url = `${VITE_URL}/api/${VITE_PATH}/${this.type}s`
       // console.log('deleteAllCart 刪除全部商品', url)
 
@@ -164,6 +164,9 @@ export default defineStore('cart', {
   getter: {
     cartNum() {
       return this.cartNum
+    },
+    total(){
+      return this.total
     }
   }
 })

@@ -1,41 +1,66 @@
 <template>
-  <div class="container">
-    <p>{{user.address}}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.name}}</p>
-    <p>{{user.tel}}</p>
-
-    <div v-if="$route.name === 'order-pay'">
-      <button type="button" @click.prevent="payOrder" class="btn btn-primary">確認付款</button>
-    </div>
+  <div class="d-flex flex-column gap-3">
+    <table class="table-gray-100 align-middle w-100">
+      <tbody>
+        <tr>
+          <td class="py-2">付款狀態</td>
+          <td>
+            <p v-if="order.is_paid" class="text-success fw-600">已付款</p>
+            <p v-else class="text-danger fw-600">尚須付款 NT${{order.total}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="py-2" width="35%">訂購人姓名</td>
+          <td>{{user.name}}</td>
+        </tr>
+        <tr>
+          <td class="py-2">電子信箱</td>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr>
+          <td class="py-2">聯絡電話</td>
+          <td>{{user.tel}}</td>
+        </tr>
+        <tr>
+          <td class="py-2">取貨分店</td>
+          <td>{{user.address}}</td>
+        </tr>
+        <tr>
+          <td class="py-2">取貨日期及時間</td>
+          <td>{{user.date}} {{user.time}}</td>
+        </tr>
+        <tr>
+          <td class="py-2">留言</td>
+          <td>
+            {{order.message}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button v-if="$route.name === 'order-pay'" type="button" @click.prevent="payOrder" class="btn btn-primary py-2">信用卡付款</button>
   </div>
 </template>
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env;
-import orderStore from "@/stores/orderStore";
-import cartStore from "@/stores/cartStore";
-import { mapActions, mapState } from "pinia";
-import { Alert } from "@/mixins/swal";
+import { Toast, Alert } from "@/mixins/swal";
 
 export default {
+  props: ["order", "user"],
   methods: {
-    ...mapActions(orderStore, ["getOrder", "getOrders"]),
-    ...mapActions(cartStore, ["getCart"]),
-
     // 訂單付款
     payOrder() {
       const id = this.$route.params.id;
       const url = `${VITE_URL}/api/${VITE_PATH}/pay/${id}`;
-      // console.log('payOrder 訂單付款', url)
 
-      this.$http
-        .post(url)
+      this.$http.post(url)
         .then((res) => {
           console.log("payOrder 成功訂單付款", res);
           this.$router.push(`/order-complete/${id}`);
-          this.getOrder(id);
-          this.getCart();
+          Toast.fire({
+            title: '付款成功',
+            icon: 'success'
+          })
         })
         .catch((err) => {
           console.log("payOrder 失敗", err.response);
@@ -45,14 +70,6 @@ export default {
           });
         });
     },
-  },
-  computed: {
-    ...mapState(orderStore, ["order", "user"]),
-  },
-  mounted() {
-    console.log(this.$route);
-    this.getOrders();
-    this.getOrder(this.$route.params.id);
   },
 };
 </script>

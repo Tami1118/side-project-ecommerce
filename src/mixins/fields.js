@@ -272,26 +272,26 @@ const articleFields = [
   // },
 ]
 
-const orderFields = [
-  {
-    as: 'input',
-    type: 'text',
-    id: 'orderAddress',
-    name: '地址',
-    label: '地址',
-    rules: Yup.string().required().label("文章標題"),
-    model: 'address',
-  },
-  {
-    as: 'input',
-    type: 'email',
-    id: 'orderEmail',
-    name: '電子信箱',
-    label: '電子信箱',
-    rules: Yup.string().required().label("文章標題"),
-    model: 'address',
-  },
-]
+// const orderFields = [
+//   {
+//     as: 'input',
+//     type: 'text',
+//     id: 'orderAddress',
+//     name: '地址',
+//     label: '地址',
+//     rules: Yup.string().required().label("文章標題"),
+//     model: 'address',
+//   },
+//   {
+//     as: 'input',
+//     type: 'email',
+//     id: 'orderEmail',
+//     name: '電子信箱',
+//     label: '電子信箱',
+//     rules: Yup.string().required().label("文章標題"),
+//     model: 'address',
+//   },
+// ]
 
 const userFields = [
   {
@@ -323,9 +323,9 @@ const userFields = [
     name: '聯絡電話',
     label: '聯絡電話',
     placeholder: '請輸入手機號碼',
-    rules: Yup.number().required().min(10).label("聯絡電話"),
+    rules: Yup.string().required().min(10).label("聯絡電話"),
     required: true,
-    model: 'email',
+    model: 'tel',
   },
   {
     as: 'select',
@@ -337,7 +337,36 @@ const userFields = [
     model: 'address',
     options: ["板橋總店", "中山店", "台北店", "萬華店", "中和店", "新莊店"]
   },
+  {
+    as: 'input',
+    type: 'date',
+    id: 'orderDate',
+    name: '取貨日期',
+    label: '取貨日期',
+    rules: Yup.string().required().label("取貨日期"),
+    required: true,
+    model: 'date',
+  },
+  {
+    as: 'input',
+    type: 'time',
+    id: 'orderTime',
+    name: '取貨時間',
+    label: '取貨時間',
+    rules: Yup.string().required().label("取貨時間"),
+    required: true,
+    model: 'time',
+  },
+  {
+    as: 'textarea',
+    id: 'orderMessage',
+    name: '留言',
+    label: '留言',
+    placeholder: '請輸入留言內容',
+    rules: Yup.string().label("留言"),
+  },
 ]
+
 
 export {
   localeSet,
@@ -345,6 +374,6 @@ export {
   productFields,
   couponFields,
   articleFields,
-  orderFields,
-  userFields
+  // orderFields,
+  userFields,
 }

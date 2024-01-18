@@ -5,7 +5,7 @@
       <h1 class="fs-6 fs-md-8 fw-bold">{{product.title}}</h1>
     </div>
     <div class="d-none d-md-flex flex-column">
-      <p class="mb-3">{{product.description}}</p>
+      <!-- <p class="mb-3">{{product.description}}</p> -->
       <p><span class="fw-600">內容物：</span>{{product.content}}</p>
       <p><span class="fw-600">重量：</span>250g ± 10g</p>
     </div>
