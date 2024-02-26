@@ -1,3 +1,9 @@
+<script>
+export default {
+  props: ["order", "originTotal"],
+};
+</script>
+
 <template>
   <div class="d-flex flex-column">
     <table class="table-gray-100">
@@ -41,8 +47,3 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: ["order", "originTotal"],
-};
-</script>

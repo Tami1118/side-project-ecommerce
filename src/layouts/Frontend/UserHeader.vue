@@ -10,6 +10,7 @@ export default {
   data() {
     return {
       isCart: false,
+      type: 'cart',
     };
   },
   mounted() {
@@ -72,7 +73,7 @@ export default {
     <div class="offcanvas-body">
       <template v-if="cartNum !== 0">
         <div class="text-white">
-          <cart-list></cart-list>
+          <cart-list :type="type"></cart-list>
         </div>
         
         <div class="d-flex flex-column">

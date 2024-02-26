@@ -1,6 +1,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import cartStore from "@/stores/cartStore.js";
+import orderStep from "@/components/frontend/orderStep.vue"
 import cartList from "@/components/frontend/cartList.vue";
 import orderForm from "@/components/frontend/orderForm.vue";
 import orderCoupon from "@/components/frontend/orderCoupon.vue";
@@ -8,6 +9,7 @@ import productSwiper from "@/components/frontend/productSwiper.vue";
 
 export default {
   components: {
+    orderStep,
     cartList,
     orderForm,
     orderCoupon,
@@ -15,6 +17,16 @@ export default {
   },
   methods: {
     ...mapActions(cartStore, ["clearCart"]),
+    address(){
+      const url = 'https://gist.githubusercontent.com/abc873693/2804e64324eaaf26515281710e1792df/raw/a1e1fc17d04b47c564bbd9dba0d59a6a325ec7c1/taiwan_districts.json'
+      this.$http.get(url)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   computed: {
     ...mapState(cartStore, ["cartNum"]),
@@ -25,9 +37,10 @@ export default {
 <template>
   <div class="bg-gray-100">
     <div class="container py-10">
+      <button @click="address">取得地址</button>
       <div class="row g-0">
         <div class="col-12 p-12">
-          <!-- step -->
+          <order-step></order-step>
         </div>
         <div v-if="cartNum !== 0" class="col-12 col-lg-6 h-fit-content">
           <div class="p-0 p-md-8 p-lg-12 mb-6 mb-md-0">

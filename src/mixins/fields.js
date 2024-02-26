@@ -1,5 +1,10 @@
 import * as Yup from 'yup';
 
+// 待辦
+// 電話號碼errormessage
+// 日期必須為明天開始
+// 時間必須間隔 30 分鐘
+
 const localeSet = Yup.setLocale({
   string: {
     email: "請輸入正確${path}格式",

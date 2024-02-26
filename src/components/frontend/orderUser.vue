@@ -1,3 +1,34 @@
+<script>
+const { VITE_URL, VITE_PATH } = import.meta.env;
+import { Toast, Alert } from "@/mixins/swal";
+
+export default {
+  props: ["order", "user"],
+  methods: {
+    payOrder() {
+      const id = this.$route.params.id;
+      const url = `${VITE_URL}/api/${VITE_PATH}/pay/${id}`;
+      this.$http.post(url)
+        .then((res) => {
+          console.log("payOrder 成功訂單付款", res);
+          this.$router.push(`/order-complete/${id}`);
+          Toast.fire({
+            title: '付款成功',
+            icon: 'success'
+          })
+        })
+        .catch((err) => {
+          console.log("payOrder 失敗", err.response);
+          Alert.fire({
+            title: "資料有誤，請稍後再試一次",
+            icon: "error",
+          });
+        });
+    },
+  },
+};
+</script>
+
 <template>
   <div class="d-flex flex-column gap-3">
     <table class="table-gray-100 align-middle w-100">
@@ -40,36 +71,3 @@
     <button v-if="$route.name === 'order-pay'" type="button" @click.prevent="payOrder" class="btn btn-primary py-2">信用卡付款</button>
   </div>
 </template>
-
-<script>
-const { VITE_URL, VITE_PATH } = import.meta.env;
-import { Toast, Alert } from "@/mixins/swal";
-
-export default {
-  props: ["order", "user"],
-  methods: {
-    // 訂單付款
-    payOrder() {
-      const id = this.$route.params.id;
-      const url = `${VITE_URL}/api/${VITE_PATH}/pay/${id}`;
-
-      this.$http.post(url)
-        .then((res) => {
-          console.log("payOrder 成功訂單付款", res);
-          this.$router.push(`/order-complete/${id}`);
-          Toast.fire({
-            title: '付款成功',
-            icon: 'success'
-          })
-        })
-        .catch((err) => {
-          console.log("payOrder 失敗", err.response);
-          Alert.fire({
-            title: "資料有誤，請稍後再試一次",
-            icon: "error",
-          });
-        });
-    },
-  },
-};
-</script>

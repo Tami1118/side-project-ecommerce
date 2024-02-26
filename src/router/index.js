@@ -131,4 +131,8 @@ const router = createRouter({
   },
 })
 
+router.beforeEach((to) => {
+  document.title = `${to.meta.title}-甜福園` || '甜福園';
+})
+
 export default router

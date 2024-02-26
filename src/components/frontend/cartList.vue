@@ -3,11 +3,12 @@ import { mapActions, mapState } from "pinia";
 import cartStore from "@/stores/cartStore.js";
 
 export default {
+  props: ["type"],
   mounted() {
     this.getCart();
   },
   methods: {
-    ...mapActions(cartStore, ["addCart","getCart","updateCartItem","deleteCartItem"]),
+    ...mapActions(cartStore, ["getCart","updateCartItem","deleteCartItem"]),
   },
   computed: {
     ...mapState(cartStore, ["carts","cartNum","isDisabled"]),
@@ -26,7 +27,7 @@ export default {
           <div class="d-flex justify-content-between">
             <h3 class="fs-4 fw-500">{{item.product.title}}</h3>
             <button type="button" class="btn p-0 d-flex align-items-center" @click="deleteCartItem(item.id)">
-              <span class="material-symbols-outlined fs-5">delete</span>
+              <span class="material-symbols-outlined fs-5" :class="type === 'cart'? 'text-white':'text-gray-600'">delete</span>
             </button>
           </div>
           <p class="fs-3h text-nowrap">NT${{item.product.price}}/{{item.product.unit}}</p>

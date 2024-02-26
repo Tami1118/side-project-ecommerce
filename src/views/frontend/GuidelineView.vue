@@ -202,6 +202,58 @@
         </div>
       </div>
 
+      <button class="btn btn-primary" @click="openOffcanvas">開啟</button>
+
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        Button with data-bs-target
+      </button>
+
+      <div ref="cartOffcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div>
+            <router-link class="btn btn-primary" to="/cart">購物車</router-link>
+            <button class="btn btn-primary" @click="closeOffcanvas">關閉</button>
+          </div>
+          <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
+
+<script>
+import Offcanvas from "bootstrap/js/dist/offcanvas"
+
+export default {
+  data(){
+    return {
+      cartOffcanvas: '',
+    }
+  },
+  mounted(){
+    this.cartOffcanvas = new Offcanvas(this.$refs.cartOffcanvas)
+  },
+  methods: {
+    openOffcanvas(){
+      this.cartOffcanvas.show()
+    },
+    closeOffcanvas(){
+      this.cartOffcanvas.hide()
+    }
+  }
+}
+</script>

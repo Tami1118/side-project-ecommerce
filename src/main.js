@@ -21,20 +21,20 @@ Object.keys(AllRules).forEach((rule) => {
 });
 
 // Vee Validate-i18n
-// import { localize,setLocale } from '@vee-validate/i18n';
-// import { localize } from '@vee-validate/i18n';
-// import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
+import { localize, setLocale } from '@vee-validate/i18n'
+import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
+// 設定 vee validation 全域規則
 configure({
-  // generateMessage: localize({ zh_TW: zhTW }),
-  validateOnInput: true,
+  generateMessage: localize({ zh_TW: zhTW }), // 載入繁體中文語系
+  validateOnInput: true, // 輸入時，是否需同時執行驗證
 });
-// setLocale('zh_TW')
+setLocale('zh_TW'); // 設定預設語系
 
 // Yup-locales
-import { zhtw } from 'yup-locales';
-import { setLocale } from 'yup';
-setLocale(zhtw);
+// import { zhtw } from 'yup-locales';
+// import { setLocale } from 'yup';
+// setLocale(zhtw);
 // console.dir(setLocale)
 
 // CKEditor

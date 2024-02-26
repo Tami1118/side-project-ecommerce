@@ -43,7 +43,7 @@
 }
 
 .btn-outline-primary {
-  background-color: #fff;
+  background-color: transparent;
 
   .btn-check:checked+&,
   :not(.btn-check)+&:active,
@@ -57,7 +57,7 @@
 }
 
 .btn-outline-secondary {
-  background-color: #fff;
+  background-color: transparent;
 
   &:hover{
     color: white;

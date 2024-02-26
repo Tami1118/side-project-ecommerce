@@ -1,11 +1,14 @@
 <template>
-  <swiper :modules="modules" :pagination="{
+  <swiper :modules="modules"
+          :pagination="{
             el: '.recommend-swiper-pagination',
             clickable: true
-          }" :navigation="{
+          }"
+          :navigation="{
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
-          }" :slidesPerView="1" :spaceBetween="20" :breakpoints="{
+          }"
+          :slidesPerView="1" :spaceBetween="20" :breakpoints="{
             '768': {
               slidesPerView: 2,
               spaceBetween: 20,
@@ -18,7 +21,8 @@
               slidesPerView: 4,
               spaceBetween: 20,
             },
-          }" class="recommend-swiper">
+          }"
+          class="recommend-swiper">
 
     <!-- navigation -->
     <div class="d-none d-md-flex">

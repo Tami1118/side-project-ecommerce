@@ -1,19 +1,12 @@
-<template>
-  <div v-if="status" class="container py-3">
-    <nav-view></nav-view>
-    <router-view v-if="status"></router-view>
-  </div>
-</template>
-
 <script>
+import AdminHeader from "@/layouts/admin/AdminHeader.vue";
 import { RouterView } from "vue-router";
-import { Toast, Alert } from "@/mixins/swal.js";
 const { VITE_URL } = import.meta.env;
-import NavView from "@/layouts/admin/AdminHeader.vue";
+import { Toast, Alert } from "@/mixins/swal.js";
 
 export default {
   components: {
-    NavView,
+    AdminHeader,
     RouterView,
   },
   data() {
@@ -26,9 +19,9 @@ export default {
   },
   methods: {
     checkAdmin() {
-      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,"$1");
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
       this.$http.defaults.headers.common["Authorization"] = token;
-      
+
       const url = `${VITE_URL}/api/user/check`;
       this.$http.post(url)
         .then((res) => {
@@ -58,3 +51,14 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div v-if="status" class="d-lg-flex">
+    <div class="w-lg-15">
+      <AdminHeader />
+    </div>
+    <div class="w-lg-85" style="min-height:100vh">
+      <RouterView v-if="status"></RouterView>
+    </div>
+  </div>
+</template>

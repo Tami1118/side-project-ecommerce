@@ -1,8 +1,8 @@
 <script>
 import { mapActions, mapState } from "pinia";
+import orderStore from "@/stores/orderStore";
 import orderProducts from "@/components/frontend/orderProducts.vue";
 import orderUser from "@/components/frontend/orderUser.vue";
-import orderStore from "@/stores/orderStore";
 
 export default {
   components: {

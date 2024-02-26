@@ -20,10 +20,8 @@ export default {
   },
 
   methods: {
-    // 新增訂單
     createOrder() {
       const url = `${VITE_URL}/api/${VITE_PATH}/order`;
-      // console.log('createOrder 新增訂單', url)
       const data = {
         user: this.user,
         message: this.message,
