@@ -22,6 +22,8 @@ export default defineStore('product', {
       categories: ['美式塔派', '甜甜圈'],
       sortItems: ['特價：由高至低', '特價：由低至高'],
       unit: ['個'],
+
+      isOpen: 'info',
     }
   },
 
