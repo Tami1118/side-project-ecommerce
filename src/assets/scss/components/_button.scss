@@ -56,6 +56,26 @@
   }
 }
 
+.btn-outline-white {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+
+  &:hover{
+    background-color: white;
+    color: #000;
+  }
+
+  .btn-check:checked+&,
+  :not(.btn-check)+&:active,
+  &:first-child:active,
+  &.active,
+  &.show {
+    color: #233E39;
+    background-color: white;
+  }
+}
+
 .btn-outline-secondary {
   background-color: transparent;
 

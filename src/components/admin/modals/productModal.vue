@@ -4,19 +4,17 @@ import productStore from "@/stores/productStore";
 
 export default {
   props: {
-    adminProduct: Object, // tempProduct
-    isNew: Boolean, // isNew
-  },
-  computed: {
-    ...mapState(productStore, ['type_zh', 'categories', 'unit']),
+    adminProduct: Object,
+    isNew: Boolean,
+    updateProduct: Function,
   },
   data() {
     return {
       tempProduct: {
         title: '',
         category: '',
-        origin_price: 0,
-        price: 0,
+        origin_price: null,
+        price: null,
         unit: '',
         is_enabled: 0,
         content: '',
@@ -24,34 +22,51 @@ export default {
         imageUrl: '',
         imagesUrl: []
       },
-      isOpen: 'info',
+
+      isTab: 'info',
     };
   },
   watch: {
-    // 外層的值重新賦予內層的值
+    // 父層 adminProduct(tempProduct) 重新賦予子層 tempProduct
     adminProduct() {
       this.tempProduct = JSON.parse(JSON.stringify(this.adminProduct));
     },
   },
+  computed: {
+    ...mapState(productStore, ['type_zh', 'categories', 'unit']),
+    spaceForm() {
+      return this.tempProduct.title === '' ||
+        this.tempProduct.category === '' ||
+        this.tempProduct.origin_price === null ||
+        this.tempProduct.price === null ||
+        this.tempProduct.unit === ''
+    }
+  },
   methods: {
-    clearForm() {
-      this.tempProduct = {
-        title: '',
-        category: '',
-        origin_price: 0,
-        price: 0,
-        unit: '',
-        content: '',
-        description: '',
-        imageUrl: '',
-        imagesUrl: []
-      }
-    },
-
+    // 新增圖片
     createImage() {
       this.tempProduct.imagesUrl = []
       this.tempProduct.imagesUrl.push('')
-    }
+    },
+
+    // 清除表單內容
+    clearForm() {
+      this.$refs.form.resetForm()
+    },
+
+    // 清除驗證(*)
+    noneVeeStyle() {
+      let vfiled = document.querySelectorAll('.is-invalid')
+      let message = document.querySelectorAll('ErrorMessage')
+      vfiled.forEach(function (item) {
+        item.classList.remove('is-invalid')
+      })
+      message.forEach(function (item) {
+        item.remove()
+      })
+      // document.querySelector('VForm').classList.remove('was-validated')
+    },
+
   },
 };
 </script>
@@ -61,19 +76,19 @@ export default {
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="productModalLabel">{{ isNew ? '新增' : '更新' }}{{ type_zh }}</h1>
-        <button @click="isOpen = 'info'" data-bs-dismiss="modal" aria-label="Close" class="btn p-0"><font-awesome-icon icon="fa-solid fa-circle-xmark" /></button>
+        <button type="button" @click="clearForm" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <!-- Product tab -->
-        <ul class="d-flex gap-3 justify-content-center list-unstyled">
-          <li><button @click="isOpen = 'info'" :class="isOpen === 'info' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品資訊 (必填)</button></li>
-          <li><button @click="isOpen = 'content'" :class="isOpen === 'content' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品內容</button></li>
-          <li><button @click="isOpen = 'image'" :class="isOpen === 'image' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品圖片</button></li>
-        </ul>
 
-        <VForm v-slot="{ errors }">
-          <!-- Product info -->
-          <div v-show="isOpen === 'info'" class="row gy-3 m-0">
+      <VForm ref="form" v-slot="{ errors }" class="needs-validation overflow-auto" novalidate>
+        <div class="modal-body">
+          <!-- Product tab -->
+          <ul class="d-flex gap-3 justify-content-center list-unstyled">
+            <li><button type="button" @click.prevent="isTab = 'info'" :class="isTab === 'info' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品資訊</button></li>
+            <li><button type="button" @click.prevent="isTab = 'content'" :class="isTab === 'content' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品內容</button></li>
+            <li><button type="button" @click.prevent="isTab = 'image'" :class="isTab === 'image' ? 'bg-primary text-white' : 'text-gray-400'" class="btn">商品圖片</button></li>
+          </ul>
+
+          <div v-show="isTab === 'info'" class="row gy-3 m-0">
             <div class="col-lg-8">
               <label for="productTitle" class="form-label">商品名稱 <span class="text-danger">*</span></label>
               <VField type="text" id="productTitle" name="商品名稱" :class="{ 'is-invalid': errors['商品名稱'] }" rules="required" v-model="tempProduct.title" placeholder="請輸入商品名稱" class="form-control" />
@@ -89,12 +104,12 @@ export default {
             </div>
             <div class="col-lg-4">
               <label for="productPrice" class="form-label">原價 <span class="text-danger">*</span></label>
-              <VField type="number" id="productPrice" name="原價" :class="{ 'is-invalid': errors['原價'] }" rules="required|between:0,10000" v-model.number="tempProduct.price" placeholder="請輸入商品原價" class="form-control" max="10000" min="0" />
+              <VField type="number" id="productPrice" name="原價" :class="{ 'is-invalid': errors['原價'] }" rules="required|between:0,10000" v-model.number="tempProduct.price" class="form-control" placeholder="請輸入商品原價" max="10000" min="0" />
               <ErrorMessage name="原價" class="invalid-feedback" />
             </div>
             <div class="col-lg-4">
               <label for="productOriginPrice" class="form-label">特價 <span class="text-danger">*</span></label>
-              <VField type="number" id="productOriginPrice" name="特價" :class="{ 'is-invalid': errors['特價'] }" rules="required|between:0,10000" v-model.number="tempProduct.origin_price" placeholder="請輸入商品特價" class="form-control" max="10000" min="0" />
+              <VField type="number" id="productOriginPrice" name="特價" :class="{ 'is-invalid': errors['特價'] }" rules="required|between:0,10000" v-model.number="tempProduct.origin_price" class="form-control" placeholder="請輸入商品特價" max="10000" min="0" />
               <ErrorMessage name="特價" class="invalid-feedback" />
             </div>
             <div class="col-lg-4">
@@ -107,26 +122,24 @@ export default {
             </div>
             <div class="col-lg-12 d-flex justify-content-end">
               <div class="form-check form-switch rounded-100">
-                <input class="form-check-input rounded-10" type="checkbox" :true-value="1" :false-value="0" id="productEnabled" v-model.number="tempProduct.is_enabled">
+                <input type="checkbox" id="productEnabled" :true-value="1" :false-value="0" v-model.number="tempProduct.is_enabled" class="form-check-input rounded-10">
                 <label class="form-check-label" :class="tempProduct.is_enabled ? 'text-primary fw-500' : ''" for="productEnabled">{{ tempProduct.is_enabled ? '已啟用' : '未啟用' }}</label>
               </div>
             </div>
           </div>
 
-          <!-- Product content -->
-          <div v-show="isOpen === 'content'" class="row gy-3 m-0">
+          <div v-show="isTab === 'content'" class="row gy-3 m-0">
             <div class="col-12">
               <label for="productContent" class="form-label">商品內容</label>
-              <input type="text" id="productContent" v-model="tempProduct.content" placeholder="請輸入商品內容" class="form-control" />
+              <VField type="text" id="productContent" name="商品內容" v-model="tempProduct.content" placeholder="請輸入商品內容" class="form-control" />
             </div>
             <div class="col-12">
               <label for="productDescription" class="form-label">商品說明</label>
-              <textarea id="productDescription" v-model="tempProduct.description" placeholder="請輸入商品說明" class="form-control" rows="3"></textarea>
+              <VField as="textarea" id="productDescription" name="商品說明" v-model="tempProduct.description" placeholder="請輸入商品說明" class="form-control" rows="3"></VField>
             </div>
           </div>
 
-          <!-- Product image -->
-          <div v-show="isOpen === 'image'" class="row gy-3 m-0">
+          <div v-show="isTab === 'image'" class="row gy-3 m-0">
             <!-- Image show -->
             <div class="row g-3 m-0">
               <!-- Main image -->
@@ -170,7 +183,6 @@ export default {
                 </ul>
               </div>
             </div>
-
             <!-- Image link -->
             <div class="row g-3 m-0">
               <!-- Main image -->
@@ -178,7 +190,7 @@ export default {
                 <label for="form-label">主圖</label>
               </div>
               <div class="col-10">
-                <input type="text" class="form-control" v-model="tempProduct.imageUrl">
+                <VField type="text" name="主圖" class="form-control" v-model="tempProduct.imageUrl"></VField>
               </div>
 
               <!-- More images -->
@@ -186,30 +198,27 @@ export default {
                 <label for="form-label">多圖設置</label>
               </div>
               <div class="col-10">
-                <!-- <template v-if="tempProduct.imagesUrl.length > 0 || tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1]"> -->
-                <template v-if="tempProduct.imagesUrl !== undefined">
+                <button v-if="tempProduct.imagesUrl === undefined || tempProduct.imagesUrl.length === 0" class="btn btn-primary" @click.prevent="createImage()">新增圖片</button>
+                <template v-else>
                   <ul>
                     <li v-for="(image, index) in tempProduct.imagesUrl" :key="index">
                       <div class="input-group mb-3">
-                        <input class="form-control" type="text" v-model="tempProduct.imagesUrl[index]">
+                        <VField class="form-control" :name="`多圖${index}`" type="text" v-model="tempProduct.imagesUrl[index]"></VField>
                         <button class="btn btn-outline-gray-500" @click.prevent="tempProduct.imagesUrl.splice(index, 1)"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
                       </div>
                     </li>
                   </ul>
                   <button v-if="tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1] && tempProduct.imagesUrl.length < 5" @click.prevent="tempProduct.imagesUrl.push('')" class="btn btn-primary">新增圖片</button>
                 </template>
-                <!-- <button class="btn btn-primary" @click.prevent="createImage()">新增圖片</button> -->
-                <button v-else class="btn btn-primary" @click.prevent="createImage()">新增圖片</button>
               </div>
             </div>
           </div>
-        </VForm>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-gray-500" @click="clearForm()">清除</button>
-        <button type="button" class="btn btn-outline-gray-500" data-bs-dismiss="modal" @click="isOpen = 'info', $emit('close-modal', closeModal)">取消</button>
-        <button type="button" class="btn btn-primary" @click="$emit('update-Product', updateProduct), isOpen = 'info'">儲存</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-gray-500" @click="clearForm" data-bs-dismiss="modal" aria-label="Close">取消</button>
+          <button @submit.prevent="updateProduct(tempProduct)" class="btn btn-primary">儲存</button>
+        </div>
+      </VForm>
     </div>
   </div>
 </template>

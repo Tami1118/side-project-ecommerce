@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia'
 const { VITE_URL, VITE_PATH } = import.meta.env;
+import { Alert } from '@/mixins/swal';
+import { defineStore } from 'pinia';
 import axios from 'axios'
-import { Alert } from '@/mixins/swal'
 
 export default defineStore('product', {
   state: () => {
@@ -14,6 +14,8 @@ export default defineStore('product', {
       productAll: [],
       pagination: {},
       productSwiper: [],
+
+      isTab: 'info',
       
       // Product filter
       searchKeyword: '',
@@ -22,8 +24,6 @@ export default defineStore('product', {
       categories: ['美式塔派', '甜甜圈'],
       sortItems: ['特價：由高至低', '特價：由低至高'],
       unit: ['個'],
-
-      isOpen: 'info',
     }
   },
 

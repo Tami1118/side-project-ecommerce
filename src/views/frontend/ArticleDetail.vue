@@ -1,11 +1,18 @@
 <template>
-  <div>
+  <div v-if="article">
+    <div class="page-banner text-white">
+      <div class="container">
+        <h2>{{ article.title }}</h2>
+      </div>
+      <img :src="article.imageUrl" :alt="`${article.title} 圖片`" class="object-image h-400">
+    </div>
+
     <!-- 1. breadcrumb -->
 
 
     <!-- 2. article's content -->
     <!-- title, create_at, author, tag, imageUrl, content -->
-    
+
     <!-- 3. prev/next article link -->
     <!-- {{articles[currIndex - 1].title}}
     {{articles[currIndex].title}}
@@ -55,8 +62,9 @@ export default {
         .get(url)
         .then((res) => {
           // console.log('取得所有文章',res)
-          this.articles = res.data.articles;
-          this.pagination = res.data.pagination;
+          const { articles, pagination } = res.data
+          this.articles = articles
+          this.pagination = pagination
           console.log("getArticle 取得所有文章", this.articles);
         })
         .catch((err) => {
@@ -69,7 +77,8 @@ export default {
       this.$http
         .get(url).then((res) => {
           console.log(res);
-          this.article = res.data.article;
+          const article = res.data.article
+          this.article = article
           this.currIndex = this.articles.findIndex(item => item.id === this.article.id)
           // 發現有時間差，會導致 index 會跑出 -1
           // console.log(this.article.id)
@@ -87,10 +96,10 @@ export default {
     // 6. articles[currentIndex - 1], articles[currentIndex + 1] 取得 id
     // 7. 將 id 帶入 getArticle 取得上一篇及下一篇詳細資料
 
-    nextArticle(){
+    nextArticle() {
       this.nextIndex = this.currIndex + 1
     },
-    prevArticle(){
+    prevArticle() {
       this.prevIndex = this.currIndex - 1
     }
   },

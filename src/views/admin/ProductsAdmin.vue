@@ -22,8 +22,8 @@ export default {
       tempProduct: {
         title: '',
         category: '',
-        origin_price: 0,
-        price: 0,
+        origin_price: null,
+        price: null,
         unit: '',
         is_enabled: 0,
         content: '',
@@ -32,7 +32,7 @@ export default {
         imagesUrl: []
       },
       isNew: false,
-      isOpen: 'info',
+      isTab: 'info',
 
       // Filter product
       searchKeyword: "",
@@ -68,8 +68,9 @@ export default {
       this.$http.get(url)
         .then((res) => {
           console.log('getProducts 已取得', res);
-          this.products = res.data.products;
-          this.pagination = res.data.pagination;
+          const { products, pagination } = res.data
+          this.products = products;
+          this.pagination = pagination;
         })
         .catch((err) => {
           console.log('getProducts 失敗', err);
@@ -101,7 +102,6 @@ export default {
         });
     },
 
-
     /**
      * Open modal(add/edit、delete)
      * @param {*} state Product's state
@@ -111,12 +111,12 @@ export default {
       if (state === "create") {
         // console.log(state)
         this.isNew = true;
-        this.isOpen = 'info';
+        this.isTab = 'info';
         this.productModal.show();
       } else if (state === "edit") {
         // console.log(state)
         this.isNew = false;
-        this.isOpen = 'info';
+        this.isTab = 'info';
         this.productModal.show();
         this.tempProduct = JSON.parse(JSON.stringify(item));
       } else if (state === "delete") {
@@ -129,21 +129,21 @@ export default {
     /**
      * Add or update product
      */
-    updateProduct() {
+    updateProduct(tempProduct) {
       const method = this.isNew ? "post" : "put";
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/${this.type}/`;
-      const uid = this.isNew ? "" : `${this.tempProduct.id}`;
+      const uid = this.isNew ? "" : `${tempProduct.id}`;
       const msg = this.isNew ? "新增" : "更新";
 
-      this.$http[method](`${url}${uid}`, { data: this.tempProduct })
+      this.$http[method](`${url}${uid}`, { data: tempProduct })
         .then(() => {
           this.getProducts();
           Toast.fire({
             icon: "success",
             title: `已${msg}商品`,
           });
-          this.clearForm()
           this.productModal.hide();
+          this.clearForm()
         })
         .catch(() => {
           Alert.fire({
@@ -302,8 +302,8 @@ export default {
           </td>
           <td>
             <div class="d-flex align-items-center gap-3">
-              <button @click="openModal('edit', product)" class="btn btn-outline-primary"><font-awesome-icon icon="fa-regular fa-pen-to-square" class="me-1" />編輯</button>
-              <button type="button" class="btn btn-outline-secondary" @click="openModal('delete', product)"><font-awesome-icon icon="fa-regular fa-trash-can" class="me-1" />刪除</button>
+              <button type="button" @click="openModal('edit', product)" class="btn btn-outline-primary"><font-awesome-icon icon="fa-regular fa-pen-to-square" class="me-1" />編輯</button>
+              <button type="button" class="btn btn-outline-gray-500" @click="openModal('delete', product)"><font-awesome-icon icon="fa-regular fa-trash-can" class="me-1" />刪除</button>
             </div>
           </td>
         </tr>
@@ -314,8 +314,9 @@ export default {
     <page-component :pagination="pagination" :get-pages="getProducts"></page-component>
   </div>
 
-  <div ref="productModal" class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <product-modal :admin-product="tempProduct" @update-product="updateProduct" @close-modal="closeModal"></product-modal>
+  <!-- Product Modal -->
+  <div ref="productModal" class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <product-modal :is-new="isNew" :admin-product="tempProduct" :update-product="updateProduct" @close-modal="closeModal"></product-modal>
   </div>
 
   <!-- Delete Modal -->

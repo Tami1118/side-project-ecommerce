@@ -40,10 +40,21 @@
 // @import "bootstrap/scss/utilities/api";
 
 // 8. Add additional custom code here
+@import "./util/helper";
+@import "./util/breakpoint";
 @import "./base/base";
 @import "./util/link";
 @import "./components/button";
 @import "./components/card";
 @import "./components/swiper";
 @import "./components/form";
+@import "./components/animation";
+@import "./components/pagination";
+@import "./layout/header";
+@import "./layout/footer";
+@import "./page/page";
+@import "./page/home";
 @import "./page/product";
+@import "./page/article";
+@import "./page/faq";
+@import "./page/order";

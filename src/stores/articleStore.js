@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 const { VITE_URL, VITE_PATH } = import.meta.env;
 import axios from 'axios'
 
-export default defineStore ('article', {
+export default defineStore('article', {
   state: () => {
     return {
       articles: [],
@@ -12,29 +12,29 @@ export default defineStore ('article', {
     }
   },
   actions: {
-    getArticles(page = 1){
+    getArticles(page = 1) {
       const url = `${VITE_URL}/api/${VITE_PATH}/articles?page=${page}`
       console.log('getArticles 取得所有文章', url)
       axios.get(url)
         .then(res => {
           // console.log('取得所有文章',res)
-          this.articles = res.data.articles
-          this.pagination = res.data.pagination
-          // console.log(this.articles, this.pagination)
-          console.log('getArticle 取得所有文章', this.articles)
+          const { articles, pagination } = res.data
+          this.articles = articles
+          this.pagination = pagination
+          console.log('getArticle 取得所有文章', this.articles, this.pagination)
         })
         .catch(err => {
           console.log(err.response.data)
         })
     },
-    
-    getArticle(id){
+
+    getArticle(id) {
       // const {id} = this.$route.params
       // 取得該文章的索引
       // 推算該文章前後索引
       // 取得前後索引資料
       const url = `${VITE_URL}/api/${VITE_PATH}/article/${id}`
-      console.log('取得單一文章',url)
+      console.log('取得單一文章', url)
       axios.get(url)
         .then(res => {
           console.log(res)
@@ -48,11 +48,11 @@ export default defineStore ('article', {
     },
   },
   getters: {
-    getPrevArticle(){
+    getPrevArticle() {
 
     },
-    getNextArticle(){
-      
+    getNextArticle() {
+
     }
   }
 })

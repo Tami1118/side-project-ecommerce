@@ -1,0 +1,48 @@
+.page-banner {
+  background-image: url('../../assets/image/circle_single.png');
+  background-repeat: repeat;
+  background-size: 150px;
+  background-color: $primary;
+  height: 30vh;
+  transition: all 1s ease;
+
+  @include lg {
+    height: 40vh;
+  }
+}
+
+.page-title {
+  color: white;
+  font-family: RightFont;
+  transform: translateY(3.2vh);
+  font-size: calc(1.3rem + 10vw);
+  line-height: calc(1.3rem + 10vh);
+  letter-spacing: 4px;
+  transition: all 1s ease;
+
+  @include md {
+    transform: translateY(2vh);
+  }
+
+  @include lg {
+    transform: translateY(.5vh);
+  }
+}
+
+.object-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.section-space {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  transition: all 1s ease;
+
+  @include lg {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}

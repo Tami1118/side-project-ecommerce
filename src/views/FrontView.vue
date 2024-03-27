@@ -1,20 +1,18 @@
 <template>
-  <user-header></user-header>
-  <div style="padding-top: 74px">
-    <router-view></router-view>
-  </div>
+  <!-- <user-header></user-header> -->
+  <router-view></router-view>
   <user-footer></user-footer>
 </template>
 
 <script>
 import { RouterView } from "vue-router";
-import UserHeader from "@/layouts/Frontend/UserHeader.vue";
+// import UserHeader from "@/layouts/Frontend/UserHeader.vue";
 import UserFooter from "@/layouts/Frontend/UserFooter.vue";
 
 export default {
   components: {
     RouterView,
-    UserHeader,
+    // UserHeader,
     UserFooter,
   },
   watch: {

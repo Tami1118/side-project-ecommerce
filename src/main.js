@@ -48,8 +48,11 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(fas, fab, far);
 
+// import {dateDotted} from "./mixins/format.js"
+
 // 註冊
 const app = createApp(App)
+// app.config.globalProperties.$format = {dateDotted}
 app.use(createPinia())
   .use(router)
   .use(VueAxios, axios)

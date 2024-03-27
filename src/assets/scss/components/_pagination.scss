@@ -1,0 +1,28 @@
+.pagination-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.pagination-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  color: $gray-600;
+  border: 1px $gray-600 solid;
+  border-radius: 50%;
+
+
+  &.active {
+    color: white;
+    background-color: $primary;
+    border: 1px $primary solid;
+  }
+
+  &:not(.active):hover {
+    color: $primary;
+    border: 2px $primary solid;
+    font-weight: 600;
+  }
+}
